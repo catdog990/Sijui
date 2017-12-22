@@ -3,11 +3,7 @@
     outline: none;
 }
 
-body {
-	padding-top: 150px;
-}
-
-.header {
+header {
 	text-align: center;
 	border-bottom: 15px solid #009588;
 	box-shadow: 2px 4px 10px 1px #26263573;
@@ -22,6 +18,10 @@ body {
 
 h1 {
 	font-size: 40px;
+}
+
+.container {
+	margin-top: 122px;
 }
 
 
