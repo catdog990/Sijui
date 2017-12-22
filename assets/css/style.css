@@ -30,6 +30,15 @@ h1 {
 	margin-top: -78px;
 }
 
+#max-play-all {
+	box-shadow: 3px 2px 7px 0px #26263573;
+	position: fixed;
+	margin-top: -78px;
+	padding-left: 15px;
+	font-family: 'Oranienbaum', serif;
+	font-weight: bold;
+}
+
 #play-all-bar {
 	text-align: left;
 }
