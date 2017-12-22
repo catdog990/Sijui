@@ -20,8 +20,22 @@ h1 {
 	font-size: 40px;
 }
 
-.container {
-	margin-top: 122px;
+#main-content {
+	margin-top: 180px;
 }
+
+#mini-play-all {
+	box-shadow: 3px 2px 7px 0px #26263573;
+	position: fixed;
+	margin-top: 15px;
+}
+
+#play-all-bar {
+	text-align: left;
+}
+
+
+
+
 
 
