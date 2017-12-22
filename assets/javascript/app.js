@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  console.log("pls");
 
   //limit to 3 articles per pull
   var authKey = "f09c13f1ab334133b59ab848df8991cd"
@@ -14,15 +13,27 @@ $(document).ready(function () {
         // Here you work with the response obj from the NYT API
     var numArt = 3;
     for (var i = 0; i < numArt; i++) {
-      response.results[i].title;
-      console.log(response.results[i].title);
+      //response.results[i].title;
+      console.log(response);
+      var title = response.results[i].title;
+      var desc = response.results[i].abstract;
+      var link = response.results[i].url;
+      var isImg = response.results[i].media;
+      var imgUrl = 'No img today';
+      
+        if(isImg != ''){
+          imgUrl = (response.results[i].media[0])["media-metadata"][0];
+        }
+        console.log(imgUrl);
+        $("#article-div").append(title + desc + link)
+        $('#jp').html(imgUrl);
 
     }
-
-    // articleCount = [0, 1, 2]
 
   }).fail(function (err) {
     throw err;
   });
+
+  
 
 });
