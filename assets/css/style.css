@@ -21,13 +21,13 @@ h1 {
 }
 
 #main-content {
-	margin-top: 180px;
+	margin-top: 190px;
 }
 
 #mini-play-all {
 	box-shadow: 3px 2px 7px 0px #26263573;
 	position: fixed;
-	margin-top: 15px;
+	margin-top: -78px;
 }
 
 #play-all-bar {
