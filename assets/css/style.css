@@ -28,6 +28,7 @@ h1 {
 	box-shadow: 3px 2px 7px 0px #26263573;
 	position: fixed;
 	margin-top: -78px;
+
 }
 
 #max-play-all {
@@ -40,7 +41,11 @@ h1 {
 }
 
 #play-all-bar {
-	text-align: left;
+	text-align: right;
+	height: 0px;
+	margin-right: 58px;
+
+	
 }
 
 
