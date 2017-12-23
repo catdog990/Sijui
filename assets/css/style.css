@@ -7,13 +7,21 @@ body{
     /* font-family: 'Cutive Mono', monospace; */
     color: #222;
 }
-
 .a-headline{
     font-family: 'Cutive', serif;   /* Titles */
-    font-size: 1.2em;
     background-color: #009588;
     color: #FFF;
-    border: 3px solid #FFF;
+    border: 2px solid #FFF;
+    padding: 0.6rem;
+    
+}
+.rl-a-headline{
+    font-family: 'Cutive', serif;
+    background-color: #808080;
+    color: #FFF;
+    border: 2px solid #FFF;
+    padding: 0.6rem;
+    
 }
 .a-body{
     font-family: 'Oranienbaum', serif; /* body */
@@ -45,7 +53,6 @@ button#min {
     box-shadow: 8px 10px 25px 0px #4444448a;
     border: 2px solid #FFF;
 }
-
 button#lg{
     background-color: #059388;
     color: #FFF;
@@ -60,4 +67,19 @@ button#lg{
     vertical-align: baseline;
     font-size: 16px;
 }
+#foxPanel .logo {
+    background: url('../imgs/foxnews_logo.png') center center no-repeat;
+    background-size: cover;
+}
+.logo{   
+    min-width: 60px;
+    height: 50px;
+}
+.a-headline>p{
+    margin: 0;
+}
+.rl-a-headline>p{
+    margin: 0;
+}
+
 
