@@ -1,5 +1,3 @@
 $(function(){
     // Code Starts here
-
- 
 })
