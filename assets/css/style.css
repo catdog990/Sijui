@@ -3,6 +3,7 @@
     outline: none;
 }
 
+
 header {
 	text-align: center;
 	border-bottom: 15px solid #009588;
@@ -50,6 +51,87 @@ h1 {
 
 
 
+
+=======
+body{
+    /*font-family: 'Oranienbaum', serif; */
+    /* font-family: 'Cutive Mono', monospace; */
+    color: #222;
+}
+.a-headline{
+    font-family: 'Cutive', serif;   /* Titles */
+    background-color: #009588;
+    color: #FFF;
+    border: 2px solid #FFF;
+    padding: 0.6rem;
+    
+}
+.rl-a-headline{
+    font-family: 'Cutive', serif;
+    background-color: #808080;
+    color: #FFF;
+    border: 2px solid #FFF;
+    padding: 0.6rem;
+    
+}
+.a-body{
+    font-family: 'Oranienbaum', serif; /* body */
+    font-size: 18px;
+}
+.a-body span {
+    display: block;
+    margin: 0 auto;
+}
+.a-body img{
+    display: block;
+    margin: 1em auto 0 auto;
+}
+.a-btns{
+    display: flex;
+    justify-content: space-around;
+}
+button#min {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    background-color: #029488;
+    color: #FFF;
+    padding: 1em;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 16px;
+    height: 60px;
+    width: 60px;
+    box-shadow: 8px 10px 25px 0px #4444448a;
+    border: 2px solid #FFF;
+}
+button#lg{
+    background-color: #059388;
+    color: #FFF;
+    padding: 10px;
+    width: 130px;
+    height: 50px;
+    border-radius: 35px;
+    border: 3px solid #fff;
+    box-shadow: 5px 7px 10px 0px #44444494;
+    margin-bottom: 1em;
+    text-align: center;
+    vertical-align: baseline;
+    font-size: 16px;
+}
+#foxPanel .logo {
+    background: url('../imgs/foxnews_logo.png') center center no-repeat;
+    background-size: cover;
+}
+.logo{   
+    min-width: 60px;
+    height: 50px;
+}
+.a-headline>p{
+    margin: 0;
+}
+.rl-a-headline>p{
+    margin: 0;
+}
 
 
 

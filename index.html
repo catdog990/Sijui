@@ -4,16 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Materialize CSS CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Google Font -->
-
+    <link href="https://fonts.googleapis.com/css?family=Cutive|Cutive+Mono|Oranienbaum" rel="stylesheet">
     <!-- Own CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Sijui</title>
 </head>
 <body>
+    <div class="container">
+        <!-- <button id="min" class="waves-effect waves-light"><i class="material-icons">play_arrow</i></button>
+        <br>
+        <button id="lg"><i class="material-icons">play_arrow</i>Play all</button> -->
+        <div id="foxPanel">
+            <ul class="artPanel collapsible" data-collapsible="accordion"></ul>
+        </div>
+        <div id="twitterPanel">
+            <ul class="artPanel collapsible" data-collapsible="accordion"></ul>
+        </div>
+        <div id="nyTimesPanel">
+            <ul class="artPanel collapsible" data-collapsible="accordion"></ul>
+        </div>
+
 
     <div class="header">
         <header>
@@ -35,11 +51,19 @@
             <!-- The Read later Panel will appear here --> 
         </div>
 
+=======
+        <div id="readLaterSec">
+                <ul class="artPanel collapsible" data-collapsible="accordion"></ul>
+        </div>
+    </div>
+
     
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!-- Materialize JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <!-- Own JavaScript -->
     <script src="./assets/js/app.js"></script>
 </body>
