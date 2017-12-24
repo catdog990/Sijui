@@ -81,6 +81,77 @@ $(document).ready(function(){
 		}
 	});
 
+	//***************************** //
+//		        Buzzfeed API
+
+// // ***************************** //
+
+
+	// var buzzURL = "https://newsapi.org/v2/top-headlines?sources=buzzfeed&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
+
+	// AJAX call to Buzzfedd API //
+
+	// $.ajax({
+	// 	url: buzzURL,
+	// 	method:'GET'
+	// }).done(function (buzzRes){
+	// 	// Console.log entire response object
+	// 	console.log('Buzzfedd Response obj');
+	// 	console.log(buzzRes);
+
+	// 	var articleNumber = 3;
+
+
+	// for (var i = 0; i < articleNumber; i++){
+
+	// 		var buzzTitle = buzzRes.articles[i].title;
+	// 		var buzzDesc = buzzRes.articles[i].description;
+	// 		var buzzLink = buzzRes.articles[i].url;
+	// 		var buzzImgURL = buzzRes.articles[i].urlToImage;
+	
+	// console.log("1 " + buzzTitle);
+	// console.log("1 " + buzzDesc);
+	// console.log("1 " + buzzLink);
+	// console.log("1 " + buzzImgURL);
+
+		// }
+
+	// // ********************** //
+	// 			ESPN API
+		
+	// // ********************** //
+
+		var espnURL = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e"
+
+
+	$.ajax({
+			url: espnURL,
+			method:'GET'
+		}).done(function (espnRes){
+			// Console.log entire response object
+			console.log('ESPN Response obj');
+			console.log(espnRes);
+
+			var articleNumber = 3;
+
+
+	for (var i = 0; i < articleNumber; i++){
+
+				var espnTitle = espnRes.articles[i].title;
+				var espnDesc = espnRes.articles[i].description;
+				var espnLink = espnRes.articles[i].url;
+				var espnImgURL = espnRes.articles[i].urlToImage;
+		
+		console.log("1 " + espnTitle);
+		console.log("1 " + espnDesc);
+		console.log("1 " + espnLink);
+		console.log("1 " + espnImgURL);
+
+	};
+			
+
+	});
+
 	/********************
  	*	Firebase
 	*******************/
@@ -130,17 +201,17 @@ $(document).ready(function(){
 // // ***************************** //
 
 // Fox URL endpoint to reach API
-	var nbcURL = "https://api.nbcuniversal.com/v1/resources/story-sem-suggests?rs%3AsearchTerm=tru&rs%3Adesc=1&rs%3Atags=1&rs%3Aboost=orlando&api_key=vh9z5ymjevcrt28x94w7qvjd";
+	// var buzzURL = "https://newsapi.org/v2/top-headlines?sources=buzzfeed&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
 
-	// AJAX call to NBC News API
-	$.ajax({
-		url: nbcURL,
-		method:'GET'
-	}).done(function (nbcRes){
-		// Console.log entire response object
-		console.log('NBC News Response obj');
-		console.log(nbcRes);
-	});
+	// // AJAX call to NBC News API
+	// $.ajax({
+	// 	url: buzzURL,
+	// 	method:'GET'
+	// }).done(function (buzzRes){
+	// 	// Console.log entire response object
+	// 	console.log('Buzzfedd Response obj');
+	
+	// });
 
 
 });
