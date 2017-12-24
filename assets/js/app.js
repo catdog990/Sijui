@@ -123,14 +123,36 @@ $(document).ready(function(){
 	// Event Binding
 	$container.on('click', 'button.readLater', readLater);
 
+
+// // ***************************** //
+//		        NBC API
+
+// // ***************************** //
+
+// Fox URL endpoint to reach API
+	var nbcURL = "https://api.nbcuniversal.com/v1/resources/story-sem-suggests?rs%3AsearchTerm=tru&rs%3Adesc=1&rs%3Atags=1&rs%3Aboost=orlando&api_key=vh9z5ymjevcrt28x94w7qvjd";
+
+	// AJAX call to NBC News API
+	$.ajax({
+		url: nbcURL,
+		method:'GET'
+	}).done(function (nbcRes){
+		// Console.log entire response object
+		console.log('NBC News Response obj');
+		console.log(nbcRes);
+	});
+
+
 });
-$(document).ready(function () {
+
+
+
+
 
 	//   //limit to 3 articles per pull
 	//   var authKey = "f09c13f1ab334133b59ab848df8991cd"
 	//   var url = "https://api.nytimes.com/svc/mostpopular/v2/mostshared/all-sections/1.json?api-key=" + authKey;
 	//   //function to tract amount of articles pulled
-	
 	//   //ajax call to pull most shared articles from nytimes
 	//   $.ajax({
 	//     url: url,
