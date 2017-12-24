@@ -124,7 +124,7 @@ $(document).ready(function(){
 	$container.on('click', 'button.readLater', readLater);
 
 });
-$(document).ready(function () {
+// $(document).ready(function () {
 
 	//   //limit to 3 articles per pull
 	//   var authKey = "f09c13f1ab334133b59ab848df8991cd"
