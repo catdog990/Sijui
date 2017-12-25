@@ -29,6 +29,7 @@ h1 {
 	box-shadow: 3px 2px 7px 0px #26263573;
 	position: fixed;
 	margin-top: -78px;
+	margin-left: 78px;
 
 }
 
@@ -39,12 +40,13 @@ h1 {
 	padding-left: 15px;
 	font-family: 'Oranienbaum', serif;
 	font-weight: bold;
+	/*border-radius: 50%;*/ /*To check preference with team*/
 }
 
 #play-all-bar {
 	text-align: right;
 	height: 0px;
-	margin-right: 58px;
+	margin-right: 135px;
 
 	
 }
