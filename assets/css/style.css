@@ -122,10 +122,7 @@ button#lg{
     background: url('../imgs/foxnews_logo.png') center center no-repeat;
     background-size: cover;
 }
-.logo{   
-    min-width: 60px;
-    height: 50px;
-}
+
 .a-headline>p{
     margin: 0;
 }
@@ -134,4 +131,13 @@ button#lg{
 }
 
 
+#espnPanel .logo {
+    background: url('../imgs/ESPN-Logo.png') center center no-repeat;
+    background-size: cover;
+}
 
+.logo{
+    min-width: 120px;
+    height: 50px;
+    margin-right: 10px;
+}

@@ -57,7 +57,7 @@ $(document).ready(function(){
 			var slicedUrlStr = foxImgUrl.slice(0 , paramIndex);
 
 			// HTML string to create panel
-			var artCard = `
+			var foxCard = `
 				
 				<li>
 					<div class="article-title collapsible-header a-headline">
@@ -77,8 +77,111 @@ $(document).ready(function(){
 				</li>`;
 			
 			// Append HTML string to the panel
-			$foxUlPanel.append(artCard);
+			$foxUlPanel.append(foxCard);
 		}
+	});
+
+	//***************************** //
+//		        Buzzfeed API
+
+// // ***************************** //
+
+
+	// var buzzURL = "https://newsapi.org/v2/top-headlines?sources=buzzfeed&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
+
+	// AJAX call to Buzzfedd API //
+
+	// $.ajax({
+	// 	url: buzzURL,
+	// 	method:'GET'
+	// }).done(function (buzzRes){
+	// 	// Console.log entire response object
+	// 	console.log('Buzzfedd Response obj');
+	// 	console.log(buzzRes);
+
+	// 	var articleNumber = 3;
+
+
+	// for (var i = 0; i < articleNumber; i++){
+
+	// 		var buzzTitle = buzzRes.articles[i].title;
+	// 		var buzzDesc = buzzRes.articles[i].description;
+	// 		var buzzLink = buzzRes.articles[i].url;
+	// 		var buzzImgURL = buzzRes.articles[i].urlToImage;
+	
+	// console.log("1 " + buzzTitle);
+	// console.log("1 " + buzzDesc);
+	// console.log("1 " + buzzLink);
+	// console.log("1 " + buzzImgURL);
+
+		// }
+
+	// // ********************** //
+	// 			ESPN API
+		
+	// // ********************** //
+
+
+	// ESPN URL endpoint for API //
+		var espnURL = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e"
+
+
+	$.ajax({
+			url: espnURL,
+			method:'GET'
+		}).done(function (espnRes){
+			// Console.log entire response object
+			console.log('ESPN Response obj');
+			console.log(espnRes);
+
+			var articleNumber = 3;
+
+
+	// Loop through 3 articles //
+	for (var i = 0; i < articleNumber; i++){
+
+				var espnTitle = espnRes.articles[i].title;
+				var espnDesc = espnRes.articles[i].description;
+				var espnLink = espnRes.articles[i].url;
+				var espnImgURL = espnRes.articles[i].urlToImage;
+		
+		console.log("1 " + espnTitle);
+		console.log("1 " + espnDesc);
+		console.log("1 " + espnLink);
+		console.log("1 " + espnImgURL);
+
+
+		// Creating Panel and appending it to page //
+
+		var espnPanel = $('#espnPanel');
+		var espnUlPanel = espnPanel.find('.artPanel');
+
+		var espnCard = `
+				
+				<li>
+					<div class="article-title collapsible-header a-headline">
+						<div class="logo"></div>
+						<p class="a-title">${espnTitle}</p>
+						<i class="material-icons">arrow_drop_down</i>
+					</div>
+					<div class="collapsible-body a-body">
+						<span class="a-desc">${espnDesc}</span>
+						<img src="${espnImgURL}" class="responsive-img" alt="Picture for article">
+						<br>
+						<div class="a-btns">
+							<button class="readLater btn teal waves-effect waves-light">Read Later</button>
+							<a href="${espnLink}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
+						</div>                        
+					</div>
+				</li>`;
+
+				// Append HTML string to the panel // 
+					espnUlPanel.append(espnCard);
+
+
+		};
+			
+
 	});
 
 	/********************
@@ -130,17 +233,17 @@ $(document).ready(function(){
 // // ***************************** //
 
 // Fox URL endpoint to reach API
-	var nbcURL = "https://api.nbcuniversal.com/v1/resources/story-sem-suggests?rs%3AsearchTerm=tru&rs%3Adesc=1&rs%3Atags=1&rs%3Aboost=orlando&api_key=vh9z5ymjevcrt28x94w7qvjd";
+	// var buzzURL = "https://newsapi.org/v2/top-headlines?sources=buzzfeed&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
 
-	// AJAX call to NBC News API
-	$.ajax({
-		url: nbcURL,
-		method:'GET'
-	}).done(function (nbcRes){
-		// Console.log entire response object
-		console.log('NBC News Response obj');
-		console.log(nbcRes);
-	});
+	// // AJAX call to NBC News API
+	// $.ajax({
+	// 	url: buzzURL,
+	// 	method:'GET'
+	// }).done(function (buzzRes){
+	// 	// Console.log entire response object
+	// 	console.log('Buzzfedd Response obj');
+	
+	// });
 
 
 });
