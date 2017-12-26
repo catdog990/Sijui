@@ -46,15 +46,9 @@ h1 {
 #play-all-bar {
 	text-align: right;
 	height: 0px;
-	margin-right: 135px;
-
-	
+	margin-right: 135px;	
 }
 
-
-
-
-=======
 body{
     /*font-family: 'Oranienbaum', serif; */
     /* font-family: 'Cutive Mono', monospace; */
@@ -133,6 +127,11 @@ button#lg{
 }
 .rl-a-headline>p{
     margin: 0;
+}
+
+#foxPanel #nyTimesPanel #twitterPanel {
+    max-height: 350px;
+    min-height: 300px;
 }
 
 
