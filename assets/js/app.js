@@ -121,6 +121,8 @@ $(document).ready(function(){
 		
 	// // ********************** //
 
+
+	// ESPN URL endpoint for API //
 		var espnURL = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e"
 
 
@@ -135,6 +137,7 @@ $(document).ready(function(){
 			var articleNumber = 3;
 
 
+	// Loop through 3 articles //
 	for (var i = 0; i < articleNumber; i++){
 
 				var espnTitle = espnRes.articles[i].title;
@@ -146,6 +149,9 @@ $(document).ready(function(){
 		console.log("1 " + espnDesc);
 		console.log("1 " + espnLink);
 		console.log("1 " + espnImgURL);
+
+
+		// Creating Panel and appending it to page //
 
 		var espnPanel = $('#espnPanel');
 		var espnUlPanel = espnPanel.find('.artPanel');
