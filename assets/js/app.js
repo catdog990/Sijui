@@ -57,7 +57,7 @@ $(document).ready(function(){
 			var slicedUrlStr = foxImgUrl.slice(0 , paramIndex);
 
 			// HTML string to create panel
-			var artCard = `
+			var foxCard = `
 				
 				<li>
 					<div class="article-title collapsible-header a-headline">
@@ -77,7 +77,7 @@ $(document).ready(function(){
 				</li>`;
 			
 			// Append HTML string to the panel
-			$foxUlPanel.append(artCard);
+			$foxUlPanel.append(foxCard);
 		}
 	});
 
@@ -147,7 +147,33 @@ $(document).ready(function(){
 		console.log("1 " + espnLink);
 		console.log("1 " + espnImgURL);
 
-	};
+		var espnPanel = $('#espnPanel');
+		var espnUlPanel = espnPanel.find('.artPanel');
+
+		var espnCard = `
+				
+				<li>
+					<div class="article-title collapsible-header a-headline">
+						<div class="logo"></div>
+						<p class="a-title">${espnTitle}</p>
+						<i class="material-icons">arrow_drop_down</i>
+					</div>
+					<div class="collapsible-body a-body">
+						<span class="a-desc">${espnDesc}</span>
+						<img src="http:${espnImgURL}" class="responsive-img" alt="Picture for article">
+						<br>
+						<div class="a-btns">
+							<button class="readLater btn teal waves-effect waves-light">Read Later</button>
+							<a href="${espnLink}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
+						</div>                        
+					</div>
+				</li>`;
+
+				// Append HTML string to the panel // 
+					espnUlPanel.append(espnCard);
+
+
+		};
 			
 
 	});
