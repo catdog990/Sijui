@@ -160,7 +160,7 @@ $(document).ready(function(){
 					</div>
 					<div class="collapsible-body a-body">
 						<span class="a-desc">${espnDesc}</span>
-						<img src="http:${espnImgURL}" class="responsive-img" alt="Picture for article">
+						<img src="${espnImgURL}" class="responsive-img" alt="Picture for article">
 						<br>
 						<div class="a-btns">
 							<button class="readLater btn teal waves-effect waves-light">Read Later</button>
