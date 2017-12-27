@@ -32,6 +32,7 @@ h1 {
 	margin-left: 78px;
     display: none;
 
+
 }
 
 #max-play-all {
@@ -143,4 +144,16 @@ button#lg{
     height: 50px;
     margin-right: 10px;
 }
+
+@media screen and (max-width: 426px) {
+    #max-play-all {
+        display: none;
+    }
+
+    #mini-play-all {
+        display: initial;
+    }
+}
+
+
 
