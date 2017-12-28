@@ -220,7 +220,16 @@ $(document).ready(function(){
 
 	// Event Binding
 	$container.on('click', 'button.readLater', readLater);
-
+	
+	//read page button
+	$("#mini-play-all").click(function() {
+		//text body variable
+		var bodyText = $("#container");
+		//speak text audibly 
+		responsiveVoice.speak(bodyText);
+	});
+	
+	$().click();
 
 });
 
