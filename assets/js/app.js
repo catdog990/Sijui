@@ -224,12 +224,12 @@ $(document).ready(function(){
 	//read page button
 	$("#mini-play-all").click(function() {
 		//text body variable
-		var bodyText = $("#container");
+		var bodyText = $("#test-P");
 		//speak text audibly 
 		responsiveVoice.speak(bodyText);
 	});
 	
-	$().click();
+	$("#main-conent").click();
 
 });
 
