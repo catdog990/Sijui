@@ -1,50 +1,109 @@
 $(document).ready(function(){
 
-	// Initialize Firebase
-	var config = {
-	apiKey: "AIzaSyB6eP0j1WYKAW7LMMFeH5deH4R7D21fWuM",
-	authDomain: "my-firebase-proj-45c06.firebaseapp.com",
-	databaseURL: "https://my-firebase-proj-45c06.firebaseio.com",
-	projectId: "my-firebase-proj-45c06",
-	storageBucket: "my-firebase-proj-45c06.appspot.com",
-	messagingSenderId: "205248542343"
-	};
-	firebase.initializeApp(config);
+	/***********************************	
+				DOM Caching
+	***********************************/
 
-	// Hold the database in a variable
-	var db = firebase.database();
-	
-	// Reference the database
-	var dbRef =	 db.ref();
-
-	// DOM Caching
 	var $container = $('.container');
+	var $header = $('header');
 	var $foxPanel = $('#foxPanel');
 	var $foxUlPanel = $foxPanel.find('.artPanel');
+	var $espnPanel = $('#espnPanel');
+	var $espnUlPanel = $espnPanel.find('.artPanel');
+	var $nytPanel = $('#nyTimesPanel');
+	var $nytUlPanel = $nytPanel.find('.artPanel');
 	var $readLaterSec = $('#readLaterSec');
 	var $readLaterSecUl = $readLaterSec.find('ul');
 
-	/******************************
-	 * 			FOX API
-	 ******************************/
 
-	// Fox URL endpoint to reach API
+	/***********************************	
+				Variables
+	***********************************/
+
+		//1. Firebase
+	var config = {
+		apiKey: "AIzaSyB6eP0j1WYKAW7LMMFeH5deH4R7D21fWuM",
+		authDomain: "my-firebase-proj-45c06.firebaseapp.com",
+		databaseURL: "https://my-firebase-proj-45c06.firebaseio.com",
+		projectId: "my-firebase-proj-45c06",
+		storageBucket: "my-firebase-proj-45c06.appspot.com",
+		messagingSenderId: "205248542343"
+	};
+	firebase.initializeApp(config);
+
+		// Hold the database in a variable
+	var db = firebase.database();
+	
+		// Reference the database
+	var dbRef =	 db.ref();
+
+		//2. APIs
 	var foxURL = "https://newsapi.org/v2/top-headlines?sources=fox-news&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
+	var espnURL = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
+	var nyTimesURL = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/World/1.json?api-key=f09c13f1ab334133b59ab848df8991cd";
 
-	// AJAX call to Fox News API
-	$.ajax({
+
+	/***********************************	
+				Functions
+	***********************************/
+
+		//1. Header Effect
+	function yScroll() {
+		yPos = window.pageYOffset;
+		if(yPos > 5){
+			$header.addClass('small');
+		}
+		else {
+			$header.removeClass('small');
+		}
+	};
+
+		//2. Firebase: Saves articles in the Firebase database
+	function readLater(e) {
+		var target = $(e.target);	// Get the clicked element
+		// DOM Caching 
+		var rlArt = target.closest('li');
+		var rlTitle = rlArt.find('.a-title');
+		var rlDesc = rlArt.find('.a-desc');
+		var rlUrl = rlArt.find('.a-btns a');
+
+		var rlArtObj = {	// Create an object with the info from the article that will be saved for later reading
+			title: rlTitle.text(),
+			description: rlDesc.text(),
+			url: rlUrl.attr('href')
+		}
+		
+		dbRef.push(rlArtObj);	// Save to the database
+	};
+
+		// Firebase: Display saved articles in the Read Later section
+	function showReadLater(snapshot){
+		// Create an HTML string with the appropiate template
+		var rlArt = `
+		<li>
+			<div class="article-title collapsible-header rl-a-headline">
+				<p class="a-title">${snapshot.val().title}</p>
+				<i class="material-icons">arrow_drop_down</i>
+			</div>
+			<div class="collapsible-body a-body">
+				<span class="a-desc">${snapshot.val().description}</span>
+				<br>
+				<div class="a-btns">
+					<a href="${snapshot.val().url}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
+				</div>                        
+			</div>
+		</li>`
+		$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
+	};
+
+		//3. Fox News API
+	$.ajax({	// AJAX Call to the Fox News
 		url: foxURL,
 		method:'GET'
 	}).done(function (foxRes){
-		// Console.log entire response object
-		console.log('FOX News Response obj');
-		console.log(foxRes);
+		var numArts = 3;	
 
-		// Filter number of articles to display to user
-		var numArts = 3;
-
-		// Loop through the response object to retrieve only the info we need (headline, summary, img url and full art url)
-		for (var i = 0; i < numArts; i++){
+		for (var i = 0; i < numArts; i++){	// Loop through the response object to retrieve only the info we need (headline, summary, img url and full art url)
 			var foxTitle = foxRes.articles[i].title;
 			var foxDesc = foxRes.articles[i].description;
 			var foxLink = foxRes.articles[i].url;
@@ -56,9 +115,8 @@ $(document).ready(function(){
 			// Remove everything after the "?"
 			var slicedUrlStr = foxImgUrl.slice(0 , paramIndex);
 
-			// HTML string to create panel
+			// HTML string to create panel with the info from the Fox News response
 			var foxCard = `
-				
 				<li>
 					<div class="article-title collapsible-header a-headline">
 						<div class="logo"></div>
@@ -81,78 +139,21 @@ $(document).ready(function(){
 		}
 	});
 
-	//***************************** //
-//		        Buzzfeed API
-
-// // ***************************** //
-
-
-	// var buzzURL = "https://newsapi.org/v2/top-headlines?sources=buzzfeed&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
-
-	// AJAX call to Buzzfedd API //
-
-	// $.ajax({
-	// 	url: buzzURL,
-	// 	method:'GET'
-	// }).done(function (buzzRes){
-	// 	// Console.log entire response object
-	// 	console.log('Buzzfedd Response obj');
-	// 	console.log(buzzRes);
-
-	// 	var articleNumber = 3;
-
-
-	// for (var i = 0; i < articleNumber; i++){
-
-	// 		var buzzTitle = buzzRes.articles[i].title;
-	// 		var buzzDesc = buzzRes.articles[i].description;
-	// 		var buzzLink = buzzRes.articles[i].url;
-	// 		var buzzImgURL = buzzRes.articles[i].urlToImage;
-	
-	// console.log("1 " + buzzTitle);
-	// console.log("1 " + buzzDesc);
-	// console.log("1 " + buzzLink);
-	// console.log("1 " + buzzImgURL);
-
-		// }
-
-	// // ********************** //
-	// 			ESPN API
-		
-	// // ********************** //
-
-
-	// ESPN URL endpoint for API //
-		var espnURL = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e"
-
-
+		//4. ESPN API
 	$.ajax({
-			url: espnURL,
-			method:'GET'
-		}).done(function (espnRes){
-			// Console.log entire response object
-			console.log('ESPN Response obj');
-			console.log(espnRes);
+		url: espnURL,
+		method:'GET'
+	}).done(function (espnRes){
+		var articleNumber = 3;	// Filter number of articles to display to user
 
-			var articleNumber = 3;
+		for (var i = 0; i < articleNumber; i++){	// Loop through the response object to retrieve only the info we need (headline, summary, img url and full art url)
+			var espnTitle = espnRes.articles[i].title;
+			var espnDesc = espnRes.articles[i].description;
+			var espnLink = espnRes.articles[i].url;
+			var espnImgURL = espnRes.articles[i].urlToImage;
 
-
-	// Loop through 3 articles //
-	for (var i = 0; i < articleNumber; i++){
-
-				var espnTitle = espnRes.articles[i].title;
-				var espnDesc = espnRes.articles[i].description;
-				var espnLink = espnRes.articles[i].url;
-				var espnImgURL = espnRes.articles[i].urlToImage;
-
-
-		// Creating Panel and appending it to page //
-
-		var espnPanel = $('#espnPanel');
-		var espnUlPanel = espnPanel.find('.artPanel');
-
-		var espnCard = `
-				
+			// HTML string to create panel with the info from the Fox News response
+			var espnCard = `
 				<li>
 					<div class="article-title collapsible-header a-headline">
 						<div class="logo"></div>
@@ -170,32 +171,57 @@ $(document).ready(function(){
 					</div>
 				</li>`;
 
-				// Append HTML string to the panel // 
-					espnUlPanel.append(espnCard);
-
-
+			// Append HTML string to the panel
+			$espnUlPanel.append(espnCard);
 		};
-			
-
 	});
 
-	/********************
- 	*	Firebase
-	*******************/
-	function readLater(e) {
-		var target = $(e.target);
-		var rlArt = target.closest('li');
-		var rlTitle = rlArt.find('.a-title');
-		var rlDesc = rlArt.find('.a-desc');
-		var rlUrl = rlArt.find('.a-btns a');
+		//5. NY Times API
+	$.ajax({
+		  url: nyTimesURL,
+		  method: 'GET',
+		}).done(function (nytRes) {
+		console.log(nytRes);
+			var numArt = 3;	// Filter number of articles to display to user
 
-		var rlArtObj = {
-			title: rlTitle.text(),
-			description: rlDesc.text(),
-			url: rlUrl.attr('href')
-		}
+			for (var i = 0; i < numArt; i++) {	// Loop through the nytRes object to retrieve only the info we need (headline, summary, img url and full art url)
+				var nytTitle = nytRes.results[i].title;
+				var nytDesc = nytRes.results[i].abstract;
+				var nytLink = nytRes.results[i].url;
+				var nytImg = nytRes.results[i].media[0]["media-metadata"][2].url;
+				// var imgUrl = 'No img today';
+				
+				//   if(isImg != ''){
+				//     imgUrl = (nytRes.results[i].media[0])["media-metadata"][0];
+				//   }
+				//   console.log(imgUrl);
+						// HTML string to create panel with the info from the Fox News response
+				var nytCard = `
+					<li>
+						<div class="article-title collapsible-header a-headline">
+							<div class="logo"></div>
+							<p class="a-title">${nytTitle}</p>
+							<i class="material-icons">arrow_drop_down</i>
+						</div>
+						<div class="collapsible-body a-body">
+							<span class="a-desc">${nytDesc}</span>
+							<img src="${nytImg}" class="responsive-img" alt="Picture for article">
+							<br>
+							<div class="a-btns">
+								<button class="readLater btn teal waves-effect waves-light">Read Later</button>
+								<a href="${nytLink}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
+							</div>                        
+						</div>
+					</li>`;
+				$nytUlPanel.append(nytCard);	// Append HTML string to the panel
+			}
 		
-		dbRef.push(rlArtObj);
+
+		}).fail(function (err) {
+		  throw err;
+		});
+
+		
 	}
 
 	// db Event Binding
@@ -231,41 +257,19 @@ $(document).ready(function(){
 	
 	$().click();
 
+
+
+	/***********************************	
+				Event Binding
+	***********************************/
+
+		// Listen for clicks in the Read Later button (user wants to save an article)
+	$container.on('click', 'button.readLater', readLater);
+
+		// Firebase: Listen for articles added to the database
+	dbRef.on("child_added", showReadLater);
+
+	  // Event listener for scrolls using plain JS (to trigger header effect)
+	window.addEventListener('scroll', yScroll);
+
 });
-
-
-
-
-
-	  // //limit to 3 articles per pull
-	  // var authKey = "f09c13f1ab334133b59ab848df8991cd"
-	  // var url = "https://api.nytimes.com/svc/mostpopular/v2/mostshared/all-sections/1.json?api-key=" + authKey;
-	  // //function to tract amount of articles pulled
-	  // //ajax call to pull most shared articles from nytimes
-	  // $.ajax({
-	  //   url: url,
-	  //   method: 'GET',
-	  // }).done(function (response) {
-	  //       // Here you work with the response obj from the NYT API
-	  //   var numArt = 3;
-	  //   for (var i = 0; i < numArt; i++) {
-	  //     //response.results[i].title;
-	      
-	  //     var title = response.results[i].title;
-	  //     var desc = response.results[i].abstract;
-	  //     var link = response.results[i].url;
-	  //     var isImg = response.results[i].media;
-	  //     var imgUrl = 'No img today';
-		  
-	  //       if(isImg != ''){
-	  //         imgUrl = (response.results[i].media[0])["media-metadata"][0];
-	  //       }
-	  //       console.log(imgUrl);
-	  //       $("#article-div").append(title + desc + link)
-	  //       $('#jp').html(imgUrl);
-	
-	  //   }
-	
-	  // }).fail(function (err) {
-	  //   throw err;
-	  // });
