@@ -229,7 +229,7 @@ $(document).ready(function(){
 		responsiveVoice.speak(bodyText);
 	});
 	
-	$("#main-conent").click();
+	$().click();
 
 });
 
