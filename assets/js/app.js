@@ -224,9 +224,9 @@ $(document).ready(function(){
 	//read page button
 	$("#mini-play-all").click(function() {
 		//text body variable
-		var bodyText = $("#test-P");
+		var bodyText = $("readPls");
 		//speak text audibly 
-		responsiveVoice.speak(bodyText);
+		responsiveVoice.speak.bodyText;
 	});
 	
 	$().click();
