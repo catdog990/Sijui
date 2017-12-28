@@ -101,6 +101,10 @@ h2{
     background: url('../imgs/nyt_logo.png') center center no-repeat;
     background-size: contain;
 }
+#twitterPanel .logo {
+    background: url('../imgs/twitter_logo.png') center center no-repeat;
+    background-size: contain; 
+}
 .logo{
     min-width: 120px;
     height: 50px;
@@ -110,7 +114,14 @@ h2{
     margin: 0;
 }
 
+@media screen and (max-width: 500px){
+    .a-body img{
+        max-width: 200px;
+    }
+
+
 .toastStyle {
     font-family: 'Cutive', serif;
     box-shadow: 3px 2px 7px 0px #26263573;
+
 }
