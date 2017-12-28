@@ -14,7 +14,7 @@ $(document).ready(function(){
 	var $nytUlPanel = $nytPanel.find('.artPanel');
 	var $readLaterSec = $('#readLaterSec');
 	var $readLaterSecUl = $readLaterSec.find('ul');
-
+	var $playAll = $("#mini-play-all");
 	var $twitterPanel = $('#twitterPanel');
 	var $twitterUlPanel = $twitterPanel.find('ul');
 	var $twitterBtn = $('#twitterBtn');
@@ -115,31 +115,20 @@ $(document).ready(function(){
 				</li>`
 				$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
 		}
-		
-
-		var rlArt = `
-		<li>
-			<div class="article-title collapsible-header rl-a-headline">
-				<p class="a-title">${snapshot.val().title}</p>
-				<i class="material-icons">arrow_drop_down</i>
-			</div>
-			<div class="collapsible-body a-body">
-				<span class="a-desc">${snapshot.val().description}</span>
-				<br>
-				<div class="a-btns">
-					<a href="${snapshot.val().url}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
-				</div>                        
-			</div>
-		</li>`
-		$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
-
-
 	};
 
 	//function to inform user that the story has been saved.
 	function informSave() {
-	Materialize.toast("Story saved!", 4000, 'toastStyle') // 4000 is the duration of the toast
+		Materialize.toast("Story saved!", 4000, 'toastStyle') // 4000 is the duration of the toast
 	}
+
+	// Read the page to the user
+	function readIt() {
+		//speak text audibly 
+		var b = $("#foxPanel").find('p').text();
+		var c = $("#espnPanel").find('p').text();
+		responsiveVoice.speak("Fox News '" + b + "' ESPN '" + c);
+	};
 
 		//3. Fox News API
 	$.ajax({	// AJAX Call to the Fox News
@@ -256,97 +245,56 @@ $(document).ready(function(){
 		}).fail(function (err) {
 		  throw err;
 		});
+//$().click();
+			// 6. Twitter API
+		$.ajax({
+			url: "/givemeTweet",
+			method: 'GET',
+		}).done(function (tweetRes) {
+			var numArt = 3;	// Filter number of articles to display to user
 
 
-		
-	
-
-	// db Event Binding
-	dbRef.on("child_added", function(snapshot){
-		var rlArt = `
-		<li>
-			<div class="article-title collapsible-header rl-a-headline">
-				<p class="a-title">${snapshot.val().title}</p>
-				<i class="material-icons">arrow_drop_down</i>
-			</div>
-			<div class="collapsible-body a-body">
-				<span class="a-desc">${snapshot.val().description}</span>
-				<br>
-				<div class="a-btns">
-					<a href="${snapshot.val().url}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
-				</div>                        
-			</div>
-		</li>`
-		console.log(snapshot.val());
-		$readLaterSecUl.append(rlArt);
-
-	})
-
-	// Event Binding
-	$container.on('click', 'button.readLater', readLater);
-	
-	//read page button
-	$("#mini-play-all").click(function() {
-		
-		
-		//speak text audibly 
-
-		 
-		var b = $("#foxPanel").find('p').text();
-		var c = $("#espnPanel").find('p').text();
-		responsiveVoice.speak("Fox News '" + b + "' ESPN '" + c);
-	});
-	
-	$().click();
-
-
-		// 6. Twitter API
-			$.ajax({
-				url: "/givemeTweet",
-				method: 'GET',
-			}).done(function (tweetRes) {
-				var numArt = 3;	// Filter number of articles to display to user
-
-
-				for(var i = 0; i < numArt; i++){ // Loop through the nytRes object to retrieve only the info we need (headline, summary, img url and full art url)
-					// Create an HTML String
-					var tweetStr = `
-					<li>
-						<div class="article-title collapsible-header a-headline">
-							<div class="logo"></div>
-							<p class="a-title">Twitter ${[i+1]}</p>
-							<i class="material-icons">arrow_drop_down</i>
-						</div>
-						<div class="collapsible-body a-body">
-							<span class="a-desc">${tweetRes[i]}</span>
-							<br>
-							<div class="a-btns">
-								<button class="readLater btn teal waves-effect waves-light">Read Later</button>
-								<a href="#"></a>
-							</div> 
-						</div>
-					</li>`
-					// Append it to the page
-					$twitterUlPanel.append(tweetStr);
-			  	}
-			});
+			for(var i = 0; i < numArt; i++){ // Loop through the nytRes object to retrieve only the info we need (headline, summary, img url and full art url)
+				// Create an HTML String
+				var tweetStr = `
+				<li>
+					<div class="article-title collapsible-header a-headline">
+						<div class="logo"></div>
+						<p class="a-title">Twitter ${[i+1]}</p>
+						<i class="material-icons">arrow_drop_down</i>
+					</div>
+					<div class="collapsible-body a-body">
+						<span class="a-desc">${tweetRes[i]}</span>
+						<br>
+						<div class="a-btns">
+							<button class="readLater btn teal waves-effect waves-light">Read Later</button>
+							<a href="#"></a>
+						</div> 
+					</div>
+				</li>`
+				// Append it to the page
+				$twitterUlPanel.append(tweetStr);
+			}
+		});
 
 
 	/***********************************	
 				Event Binding
 	***********************************/
 
-		// Listen for clicks in the Read Later button (user wants to save an article)
+	// Listen for clicks in the Read Later button (user wants to save an article)
 	$container.on('click', 'button.readLater', readLater);
 
 	//Inform the user that the story has been saved
 	$container.on('click', 'button.readLater', informSave);
 
-		// Firebase: Listen for articles added to the database
+	// Firebase: Listen for articles added to the database
 	dbRef.on("child_added", showReadLater);
 
-	  // Event listener for scrolls using plain JS (to trigger header effect)
+	// Event listener for scrolls using plain JS (to trigger header effect)
 	window.addEventListener('scroll', yScroll);
 
+	//read page button
+	$playAll.on('click', readIt);
 
 });
