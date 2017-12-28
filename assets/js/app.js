@@ -256,11 +256,14 @@ $(document).ready(function(){
 	
 	//read page button
 	$("#mini-play-all").click(function() {
-		//text body variable
+		
 		
 		//speak text audibly 
-		var b = $("#foxPanel").text();
-		responsiveVoice.speak(b);
+
+		 
+		var b = $("#foxPanel").find('p').text();
+		var c = $("#espnPanel").find('p').text();
+		responsiveVoice.speak("Fox News '" + b + "' ESPN '" + c);
 	});
 	
 	$().click();
