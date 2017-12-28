@@ -91,19 +91,24 @@ $(document).ready(function(){
 					<div class="article-title collapsible-header rl-a-headline">
 						<p class="a-title">${snapshot.val().title}</p>
 						<i class="material-icons">arrow_drop_down</i>
-					</div>
+					</div>					
 					<div class="collapsible-body a-body">
 						<span class="a-desc">${snapshot.val().description}</span>                       
 					</div>
+
 				</li>`
+
 				$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
 		}
 		else{
 			var rlArt = `
 				<li>
 					<div class="article-title collapsible-header rl-a-headline">
-						<p class="a-title">${snapshot.val().title}</p>
-						<i class="material-icons">arrow_drop_down</i>
+						<div>
+							<p class="a-title">${snapshot.val().title}</p>
+							<i class="material-icons dropDown">arrow_drop_down</i>
+						</div>
+						<i class="material-icons gray">clear</i>
 					</div>
 					<div class="collapsible-body a-body">
 						<span class="a-desc">${snapshot.val().description}</span>
