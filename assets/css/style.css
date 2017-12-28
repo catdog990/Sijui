@@ -2,73 +2,66 @@
     box-sizing: border-box;
     outline: none;
 }
-
-
+body{
+    /*font-family: 'Oranienbaum', serif; */
+    /* font-family: 'Cutive Mono', monospace; */
+    color: #444;
+}
 header {
-	text-align: center;
-	border-bottom: 15px solid #009588;
-	box-shadow: 2px 4px 10px 1px #26263573;
-	z-index: 10;
-	position: fixed;
-  	top:0; 
-  	left:0;
-  	width: 100%; 
+    box-shadow: 2px 4px 10px 1px #26263573;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #029488;
+    height: 40vh;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s linear;
+}
+header.small{	
+	border-bottom: 5px solid #009588;
   	background-color: #ffffff;
-  	height: 100px;
+    height: 100px;
+    color: #444444;
+    font-size: 0.6em;
 }
-
 h1 {
-	font-size: 40px;
+    font-family: 'Cutive', serif; 
+    font-size: 6em;
 }
-
-#main-content {
-	margin-top: 190px;
+h2{
+    font-family: 'Cutive', serif;  
+    font-size: 2em;
+    color: #222;
 }
-
+.container {
+	margin-top: 35vh;
+}
 #mini-play-all {
 	box-shadow: 3px 2px 7px 0px #26263573;
 	position: fixed;
 	margin-top: -78px;
-	margin-left: 78px;
-
 }
-
-#max-play-all {
-	box-shadow: 3px 2px 7px 0px #26263573;
-	position: fixed;
-	margin-top: -78px;
-	padding-left: 15px;
-	font-family: 'Oranienbaum', serif;
-	font-weight: bold;
-	/*border-radius: 50%;*/ /*To check preference with team*/
-}
-
 #play-all-bar {
 	text-align: right;
 	height: 0px;
-	margin-right: 135px;	
-}
-
-body{
-    /*font-family: 'Oranienbaum', serif; */
-    /* font-family: 'Cutive Mono', monospace; */
-    color: #222;
+	margin-right: 58px;
 }
 .a-headline{
     font-family: 'Cutive', serif;   /* Titles */
     background-color: #009588;
     color: #FFF;
-    border: 2px solid #FFF;
     padding: 0.6rem;
-    
 }
 .rl-a-headline{
     font-family: 'Cutive', serif;
     background-color: #808080;
     color: #FFF;
-    border: 2px solid #FFF;
     padding: 0.6rem;
-    
 }
 .a-body{
     font-family: 'Oranienbaum', serif; /* body */
@@ -81,64 +74,38 @@ body{
 .a-body img{
     display: block;
     margin: 1em auto 0 auto;
+    max-width: 400px;
 }
 .a-btns{
     display: flex;
     justify-content: space-around;
 }
-button#min {
-    margin-top: 3em;
-    margin-bottom: 3em;
-    background-color: #029488;
-    color: #FFF;
-    padding: 1em;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 16px;
-    height: 60px;
-    width: 60px;
-    box-shadow: 8px 10px 25px 0px #4444448a;
-    border: 2px solid #FFF;
+.a-headline>p{
+    margin: 0;
 }
-button#lg{
-    background-color: #059388;
-    color: #FFF;
-    padding: 10px;
-    width: 130px;
-    height: 50px;
-    border-radius: 35px;
-    border: 3px solid #fff;
-    box-shadow: 5px 7px 10px 0px #44444494;
-    margin-bottom: 1em;
-    text-align: center;
-    vertical-align: baseline;
-    font-size: 16px;
+#foxPanel,
+#espnPanel,
+#nyTimesPanel,
+#readLaterSec{
+    box-shadow: 5px 6px 10px 0px rgba(70, 70, 70, 0.5);
 }
 #foxPanel .logo {
     background: url('../imgs/foxnews_logo.png') center center no-repeat;
     background-size: cover;
 }
-
-.a-headline>p{
-    margin: 0;
-}
-.rl-a-headline>p{
-    margin: 0;
-}
-
-#foxPanel #nyTimesPanel #twitterPanel {
-    max-height: 350px;
-    min-height: 300px;
-}
-
-
 #espnPanel .logo {
     background: url('../imgs/ESPN-Logo.png') center center no-repeat;
     background-size: cover;
 }
-
+#nyTimesPanel .logo{
+    background: url('../imgs/nyt_logo.png') center center no-repeat;
+    background-size: contain;
+}
 .logo{
     min-width: 120px;
     height: 50px;
     margin-right: 10px;
+}
+.rl-a-headline>p{
+    margin: 0;
 }
