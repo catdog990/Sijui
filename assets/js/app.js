@@ -122,13 +122,47 @@ $(document).ready(function(){
 		Materialize.toast("Story saved!", 4000, 'toastStyle') // 4000 is the duration of the toast
 	}
 
+
+	
 	// Read the page to the user
 	function readIt() {
 		//speak text audibly 
-		var b = $("#foxPanel").find('p').text();
-		var c = $("#espnPanel").find('p').text();
-		responsiveVoice.speak("Fox News '" + b + "' ESPN '" + c);
+		var foxReadOne = $("#foxPanel").find('li[data-item="1"]').find('p').text();
+		var foxReadTwo = $("#foxPanel").find('li[data-item="2"]').find('p').text();
+		var foxReadThree = $("#foxPanel").find('li[data-item="3"]').find('p').text();
+
+		var sportReadOne = $("#espnPanel").find('li[data-item="1"]').find('p').text();
+		var sportReadTwo = $("#espnPanel").find('li[data-item="2"]').find('p').text();
+		var sportReadThree = $("#espnPanel").find('li[data-item="3"]').find('p').text();
+
+		var nyReadOne = $("#nyTimesPanel").find('li[data-item="1"]').find('p').text();
+		var nyReadTwo = $("#nyTimesPanel").find('li[data-item="2"]').find('p').text();
+		var nyReadThree = $("#nyTimesPanel").find('li[data-item="3"]').find('p').text();
+
+		var twitterReadOne = $("#twitterPanel").find('li[data-item="1"').find('span').text();
+		var twitterReadTwo = $("#twitterPanel").find('li[data-item="2"').find('span').text();
+		var twitterReadThree = $("#twitterPanel").find('li[data-item="3"').find('span').text();
+
+		responsiveVoice.speak("Fox News Number One. " + foxReadOne);
+		responsiveVoice.speak("Fox News Number Two. " + foxReadTwo);
+		responsiveVoice.speak("Fox News Number Three. " + foxReadThree);
+
+	
+		responsiveVoice.speak("ESPN News Number One. " + sportReadOne);
+		responsiveVoice.speak("ESPN News Number Two. " + sportReadTwo);
+		responsiveVoice.speak("ESPN News Number Three. " + sportReadThree);
+
+	
+		responsiveVoice.speak("NYT News Number One. " + nyReadOne);
+		responsiveVoice.speak("NYT News Number Two. " + nyReadTwo);
+		responsiveVoice.speak("NYT News Number Three. " + nyReadThree);
+
+		responsiveVoice.speak("Twitter News Number One. " + twitterReadOne);
+		responsiveVoice.speak("Twitter News Number Two. " + twitterReadTwo);
+		responsiveVoice.speak("Twitter News Number Three. " + twitterReadThree);
 	};
+
+
 
 		//3. Fox News API
 	$.ajax({	// AJAX Call to the Fox News
@@ -151,7 +185,7 @@ $(document).ready(function(){
 
 			// HTML string to create panel with the info from the Fox News response
 			var foxCard = `
-				<li>
+				<li data-item="${i+1}">
 					<div class="article-title collapsible-header a-headline">
 						<div class="logo"></div>
 						<p class="a-title">${foxTitle}</p>
@@ -188,7 +222,7 @@ $(document).ready(function(){
 
 			// HTML string to create panel with the info from the Fox News response
 			var espnCard = `
-				<li>
+				<li data-item="${i+1}">
 					<div class="article-title collapsible-header a-headline">
 						<div class="logo"></div>
 						<p class="a-title">${espnTitle}</p>
@@ -215,7 +249,7 @@ $(document).ready(function(){
 		  url: nyTimesURL,
 		  method: 'GET',
 		}).done(function (nytRes) {
-		console.log(nytRes);
+		
 			var numArt = 3;	// Filter number of articles to display to user
 
 			for (var i = 0; i < numArt; i++) {	// Loop through the nytRes object to retrieve only the info we need (headline, summary, img url and full art url)
@@ -224,7 +258,7 @@ $(document).ready(function(){
 				var nytLink = nytRes.results[i].url;
 
 				var nytCard = `
-					<li>
+					<li data-item="${i+1}">
 						<div class="article-title collapsible-header a-headline">
 							<div class="logo"></div>
 							<p class="a-title">${nytTitle}</p>
@@ -245,7 +279,7 @@ $(document).ready(function(){
 		}).fail(function (err) {
 		  throw err;
 		});
-//$().click();
+
 			// 6. Twitter API
 		$.ajax({
 			url: "/givemeTweet",
@@ -257,7 +291,7 @@ $(document).ready(function(){
 			for(var i = 0; i < numArt; i++){ // Loop through the nytRes object to retrieve only the info we need (headline, summary, img url and full art url)
 				// Create an HTML String
 				var tweetStr = `
-				<li>
+				<li data-item="${i+1}">
 					<div class="article-title collapsible-header a-headline">
 						<div class="logo"></div>
 						<p class="a-title">Twitter ${[i+1]}</p>
