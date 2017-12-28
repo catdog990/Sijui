@@ -216,9 +216,47 @@ $(document).ready(function(){
 				$nytUlPanel.append(nytCard);	// Append HTML string to the panel
 			}
 		
+
 		}).fail(function (err) {
 		  throw err;
 		});
+
+		
+	}
+
+	// db Event Binding
+	dbRef.on("child_added", function(snapshot){
+		var rlArt = `
+		<li>
+			<div class="article-title collapsible-header rl-a-headline">
+				<p class="a-title">${snapshot.val().title}</p>
+				<i class="material-icons">arrow_drop_down</i>
+			</div>
+			<div class="collapsible-body a-body">
+				<span class="a-desc">${snapshot.val().description}</span>
+				<br>
+				<div class="a-btns">
+					<a href="${snapshot.val().url}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
+				</div>                        
+			</div>
+		</li>`
+		console.log(snapshot.val());
+		$readLaterSecUl.append(rlArt);
+	})
+
+	// Event Binding
+	$container.on('click', 'button.readLater', readLater);
+	
+	//read page button
+	$("#mini-play-all").click(function() {
+		//text body variable
+		var bodyText = $("#container");
+		//speak text audibly 
+		responsiveVoice.speak(bodyText);
+	});
+	
+	$().click();
+
 
 
 	/***********************************	
