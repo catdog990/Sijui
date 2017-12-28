@@ -285,6 +285,10 @@ $(document).ready(function(){
 	// Event Binding
 	$container.on('click', 'button.readLater', readLater);
 	
+
+	// *****************************
+//			Play All Button 
+	// *****************************
 	//read page button
 	$("#mini-play-all").click(function() {
 		
@@ -292,9 +296,10 @@ $(document).ready(function(){
 		//speak text audibly 
 
 		 
-		var b = $("#foxPanel").find('p').text();
-		var c = $("#espnPanel").find('p').text();
-		responsiveVoice.speak("Fox News '" + b + "' ESPN '" + c);
+		var a = $("#foxPanel").find('p').text();
+		var b = $("#espnPanel").find('p').text();
+		var c = $("#nyTimesPanel").find('p').text();
+		responsiveVoice.speak("Fox News '" + a + "' ESPN '" + b + "' New York Times '" + c);
 	});
 	
 	$().click();
