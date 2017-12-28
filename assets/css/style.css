@@ -109,3 +109,8 @@ h2{
 .rl-a-headline>p{
     margin: 0;
 }
+
+.toastStyle {
+    font-family: 'Cutive', serif;
+    box-shadow: 3px 2px 7px 0px #26263573;
+}

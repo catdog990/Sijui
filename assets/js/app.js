@@ -94,7 +94,13 @@ $(document).ready(function(){
 			</div>
 		</li>`
 		$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
+
 	};
+
+	//function to inform user that the story has been saved.
+	function informSave() {
+	Materialize.toast("Story saved!", 4000, 'toastStyle') // 4000 is the duration of the toast
+	}
 
 		//3. Fox News API
 	$.ajax({	// AJAX Call to the Fox News
@@ -242,6 +248,7 @@ $(document).ready(function(){
 		</li>`
 		console.log(snapshot.val());
 		$readLaterSecUl.append(rlArt);
+
 	})
 
 	// Event Binding
@@ -259,7 +266,6 @@ $(document).ready(function(){
 	$().click();
 
 
-
 	/***********************************	
 				Event Binding
 	***********************************/
@@ -267,10 +273,14 @@ $(document).ready(function(){
 		// Listen for clicks in the Read Later button (user wants to save an article)
 	$container.on('click', 'button.readLater', readLater);
 
+	//Inform the user that the story has been saved
+	$container.on('click', 'button.readLater', informSave);
+
 		// Firebase: Listen for articles added to the database
 	dbRef.on("child_added", showReadLater);
 
 	  // Event listener for scrolls using plain JS (to trigger header effect)
 	window.addEventListener('scroll', yScroll);
+
 
 });
