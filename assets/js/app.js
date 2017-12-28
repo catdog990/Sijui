@@ -14,7 +14,7 @@ $(document).ready(function(){
 	var $nytUlPanel = $nytPanel.find('.artPanel');
 	var $readLaterSec = $('#readLaterSec');
 	var $readLaterSecUl = $readLaterSec.find('ul');
-
+	
 
 	/***********************************	
 				Variables
@@ -222,7 +222,7 @@ $(document).ready(function(){
 		});
 
 		
-	}
+	
 
 	// db Event Binding
 	dbRef.on("child_added", function(snapshot){
@@ -250,9 +250,10 @@ $(document).ready(function(){
 	//read page button
 	$("#mini-play-all").click(function() {
 		//text body variable
-		var bodyText = $("#container");
+		
 		//speak text audibly 
-		responsiveVoice.speak(bodyText);
+		var b = $("#foxPanel").text();
+		responsiveVoice.speak(b);
 	});
 	
 	$().click();
