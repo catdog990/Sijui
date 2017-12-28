@@ -14,6 +14,10 @@ $(document).ready(function(){
 	var $nytUlPanel = $nytPanel.find('.artPanel');
 	var $readLaterSec = $('#readLaterSec');
 	var $readLaterSecUl = $readLaterSec.find('ul');
+	var $twitterPanel = $('#twitterPanel');
+	var $twitterUlPanel = $twitterPanel.find('ul');
+	var $twitterBtn = $('#twitterBtn');
+	
 
 
 	/***********************************	
@@ -79,21 +83,37 @@ $(document).ready(function(){
 		// Firebase: Display saved articles in the Read Later section
 	function showReadLater(snapshot){
 		// Create an HTML string with the appropiate template
-		var rlArt = `
-		<li>
-			<div class="article-title collapsible-header rl-a-headline">
-				<p class="a-title">${snapshot.val().title}</p>
-				<i class="material-icons">arrow_drop_down</i>
-			</div>
-			<div class="collapsible-body a-body">
-				<span class="a-desc">${snapshot.val().description}</span>
-				<br>
-				<div class="a-btns">
-					<a href="${snapshot.val().url}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
-				</div>                        
-			</div>
-		</li>`
-		$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
+		if (`${snapshot.val().url}` == '#'){
+			var rlArt = `
+				<li>
+					<div class="article-title collapsible-header rl-a-headline">
+						<p class="a-title">${snapshot.val().title}</p>
+						<i class="material-icons">arrow_drop_down</i>
+					</div>
+					<div class="collapsible-body a-body">
+						<span class="a-desc">${snapshot.val().description}</span>                       
+					</div>
+				</li>`
+				$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
+		}
+		else{
+			var rlArt = `
+				<li>
+					<div class="article-title collapsible-header rl-a-headline">
+						<p class="a-title">${snapshot.val().title}</p>
+						<i class="material-icons">arrow_drop_down</i>
+					</div>
+					<div class="collapsible-body a-body">
+						<span class="a-desc">${snapshot.val().description}</span>
+						<br>
+						<div class="a-btns">
+							<a href="${snapshot.val().url}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
+						</div>                        
+					</div>
+				</li>`
+				$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
+		}
+		
 	};
 
 		//3. Fox News API
@@ -188,14 +208,7 @@ $(document).ready(function(){
 				var nytTitle = nytRes.results[i].title;
 				var nytDesc = nytRes.results[i].abstract;
 				var nytLink = nytRes.results[i].url;
-				var nytImg = nytRes.results[i].media[0]["media-metadata"][2].url;
-				// var imgUrl = 'No img today';
-				
-				//   if(isImg != ''){
-				//     imgUrl = (nytRes.results[i].media[0])["media-metadata"][0];
-				//   }
-				//   console.log(imgUrl);
-						// HTML string to create panel with the info from the Fox News response
+
 				var nytCard = `
 					<li>
 						<div class="article-title collapsible-header a-headline">
@@ -205,7 +218,7 @@ $(document).ready(function(){
 						</div>
 						<div class="collapsible-body a-body">
 							<span class="a-desc">${nytDesc}</span>
-							<img src="${nytImg}" class="responsive-img" alt="Picture for article">
+							<img src="" class="responsive-img" alt="">
 							<br>
 							<div class="a-btns">
 								<button class="readLater btn teal waves-effect waves-light">Read Later</button>
@@ -215,49 +228,40 @@ $(document).ready(function(){
 					</li>`;
 				$nytUlPanel.append(nytCard);	// Append HTML string to the panel
 			}
-		
-
 		}).fail(function (err) {
 		  throw err;
 		});
 
-		
-	}
 
-	// db Event Binding
-	dbRef.on("child_added", function(snapshot){
-		var rlArt = `
-		<li>
-			<div class="article-title collapsible-header rl-a-headline">
-				<p class="a-title">${snapshot.val().title}</p>
-				<i class="material-icons">arrow_drop_down</i>
-			</div>
-			<div class="collapsible-body a-body">
-				<span class="a-desc">${snapshot.val().description}</span>
-				<br>
-				<div class="a-btns">
-					<a href="${snapshot.val().url}" target="_blank"><button class="btn black waves-effect waves-light">Full Story</button></a>
-				</div>                        
-			</div>
-		</li>`
-		console.log(snapshot.val());
-		$readLaterSecUl.append(rlArt);
-	})
+		// 6. Twitter API
+			$.ajax({
+				url: "/givemeTweet",
+				method: 'GET',
+			}).done(function (tweetRes) {
+				var numArt = 3;	// Filter number of articles to display to user
 
-	// Event Binding
-	$container.on('click', 'button.readLater', readLater);
-	
-	//read page button
-	$("#mini-play-all").click(function() {
-		//text body variable
-		var bodyText = $("#container");
-		//speak text audibly 
-		responsiveVoice.speak(bodyText);
-	});
-	
-	$().click();
-
-
+				for(var i = 0; i < numArt; i++){ // Loop through the nytRes object to retrieve only the info we need (headline, summary, img url and full art url)
+					// Create an HTML String
+					var tweetStr = `
+					<li>
+						<div class="article-title collapsible-header a-headline">
+							<div class="logo"></div>
+							<p class="a-title">Twitter ${[i+1]}</p>
+							<i class="material-icons">arrow_drop_down</i>
+						</div>
+						<div class="collapsible-body a-body">
+							<span class="a-desc">${tweetRes[i]}</span>
+							<br>
+							<div class="a-btns">
+								<button class="readLater btn teal waves-effect waves-light">Read Later</button>
+								<a href="#"></a>
+							</div> 
+						</div>
+					</li>`
+					// Append it to the page
+					$twitterUlPanel.append(tweetStr);
+			  	}
+			});
 
 	/***********************************	
 				Event Binding
