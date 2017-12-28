@@ -113,8 +113,15 @@ h2{
 .rl-a-headline>p{
     margin: 0;
 }
+
 @media screen and (max-width: 500px){
     .a-body img{
         max-width: 200px;
     }
+
+
+.toastStyle {
+    font-family: 'Cutive', serif;
+    box-shadow: 3px 2px 7px 0px #26263573;
+
 }
