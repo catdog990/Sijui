@@ -106,7 +106,7 @@ $(document).ready(function(){
 					<div class="article-title collapsible-header rl-a-headline">
 						<div>
 							<p class="a-title">${snapshot.val().title}</p>
-							<i class="material-icons dropDown">arrow_drop_down</i>
+							<i class="material-icons">arrow_drop_down</i>
 						</div>
 						<i class="material-icons gray">clear</i>
 					</div>
