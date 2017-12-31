@@ -6,6 +6,7 @@ $(document).ready(function(){
 
 	var $container = $('.container');
 	var $header = $('header');
+	var $headerInfo = $header.find('h5');
 	var $foxPanel = $('#foxPanel');
 	var $foxUlPanel = $foxPanel.find('.artPanel');
 	var $espnPanel = $('#espnPanel');
@@ -57,9 +58,11 @@ $(document).ready(function(){
 		yPos = window.pageYOffset;
 		if(yPos > 5){
 			$header.addClass('small');
+			$headerInfo.addClass('small');
 		}
 		else {
 			$header.removeClass('small');
+			$headerInfo.removeClass('small');
 		}
 	};
 
@@ -83,9 +86,12 @@ $(document).ready(function(){
 
 		// Firebase: Display saved articles in the Read Later section
 	function showReadLater(snapshot){
+		// Get the unique ID from the newly added child
+			// To add it as a data-attr to the created element
+		let childIdref = snapshot.key;
+	
 		// Create an HTML string with the appropiate template
-
-		if (`${snapshot.val().url}` == '#'){
+		if (`${snapshot.val().url}` == '#'){	// If the URL to full story was NOT provided (Twitter doesn't provide) create this template instead
 			var rlArt = `
 				<li>
 					<div class="article-title collapsible-header rl-a-headline">
@@ -93,7 +99,7 @@ $(document).ready(function(){
 							<p class="a-title">${snapshot.val().title}</p>
 							<i class="material-icons">arrow_drop_down</i>
 						</div>
-						<i class="material-icons">clear</i>
+						<i class="material-icons clearArticle" data-link="${childIdref}">clear</i>
 					</div>
 					<div class="collapsible-body a-body">
 						<span class="a-desc">${snapshot.val().description}</span>                       
@@ -101,7 +107,7 @@ $(document).ready(function(){
 				</li>`
 				$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
 		}
-		else{
+		else {	//If there a URL to full story was provided create this template
 			var rlArt = `
 				<li>
 					<div class="article-title collapsible-header rl-a-headline">
@@ -109,7 +115,7 @@ $(document).ready(function(){
 							<p class="a-title">${snapshot.val().title}</p>
 							<i class="material-icons">arrow_drop_down</i>
 						</div>
-						<i class="material-icons">clear</i>
+						<i class="material-icons clearArticle" data-link="${childIdref}">clear</i>
 					</div>
 					<div class="collapsible-body a-body">
 						<span class="a-desc">${snapshot.val().description}</span>
@@ -122,14 +128,26 @@ $(document).ready(function(){
 				$readLaterSecUl.append(rlArt);	// Display the saved article in the Read Later section
 		}
 	};
+		// Remove article from Firebase
+	function removeArticle(e) {
+		var fireId = $(e.target).attr('data-link');	// Get the data-link attr from the clicked element (X Icon), it holds Firebase unique ID created when the article was pushed to the database initially
+		var removeRef = db.ref(fireId);	//  Create a reference to the database using the unique ID 
+		removeRef.remove();	// Firebase method to remove the entry (article)
+	}
+		// Remove the article from the DOM
+	function removeArtFromDOM(snapshot) {	
+		var id = snapshot.key;	// Get the unique Id from the removed element from the database (that triggered the firebase event)
+		var xIcon = $(`i[data-link="${id}"]`);	// Look for the X icon with the attr equals to the unique id
+		var liToRemove = xIcon.closest('li').remove();	// Remove element from DOM
+
+		Materialize.toast("Story Deleted!", 4000, 'toastStyle');	// Alert the user that the story has been removed
+	}
 
 	//function to inform user that the story has been saved.
 	function informSave() {
-		Materialize.toast("Story saved!", 4000, 'toastStyle') // 4000 is the duration of the toast
+		Materialize.toast("Story saved!", 4000, 'toastStyle'); // 4000 is the duration of the toast
 	}
 
-
-	
 	// Read the page to the user
 	function readIt() {
 		//speak text audibly 
@@ -145,20 +163,18 @@ $(document).ready(function(){
 		var nyReadTwo = $("#nyTimesPanel").find('li[data-item="2"]').find('p').text();
 		var nyReadThree = $("#nyTimesPanel").find('li[data-item="3"]').find('p').text();
 
-		var twitterReadOne = $("#twitterPanel").find('li[data-item="1"').find('span').text();
-		var twitterReadTwo = $("#twitterPanel").find('li[data-item="2"').find('span').text();
-		var twitterReadThree = $("#twitterPanel").find('li[data-item="3"').find('span').text();
+		var twitterReadOne = $("#twitterPanel").find('li[data-item="1"]').find('span').text();
+		var twitterReadTwo = $("#twitterPanel").find('li[data-item="2"]').find('span').text();
+		var twitterReadThree = $("#twitterPanel").find('li[data-item="3"]').find('span').text();
 
 		responsiveVoice.speak("Fox News Number One. " + foxReadOne);
 		responsiveVoice.speak("Fox News Number Two. " + foxReadTwo);
 		responsiveVoice.speak("Fox News Number Three. " + foxReadThree);
 
-	
 		responsiveVoice.speak("ESPN News Number One. " + sportReadOne);
 		responsiveVoice.speak("ESPN News Number Two. " + sportReadTwo);
 		responsiveVoice.speak("ESPN News Number Three. " + sportReadThree);
 
-	
 		responsiveVoice.speak("NYT News Number One. " + nyReadOne);
 		responsiveVoice.speak("NYT News Number Two. " + nyReadTwo);
 		responsiveVoice.speak("NYT News Number Three. " + nyReadThree);
@@ -167,8 +183,6 @@ $(document).ready(function(){
 		responsiveVoice.speak("Twitter News Number Two. " + twitterReadTwo);
 		responsiveVoice.speak("Twitter News Number Three. " + twitterReadThree);
 	};
-
-
 
 		//3. Fox News API
 	$.ajax({	// AJAX Call to the Fox News
@@ -317,7 +331,6 @@ $(document).ready(function(){
 			}
 		});
 
-
 	/***********************************	
 				Event Binding
 	***********************************/
@@ -336,5 +349,11 @@ $(document).ready(function(){
 
 	//read page button
 	$playAll.on('click', readIt);
+
+	// Remove Saved Article from Firebase Database
+	$readLaterSecUl.on('click', '.clearArticle', removeArticle);
+
+	// Remove Saved Article from the HTML
+	dbRef.on('child_removed', removeArtFromDOM);
 
 });

@@ -21,6 +21,7 @@ header {
     justify-content: center;
     align-items: center;
     transition: all 0.5s linear;
+    text-align: center;
 }
 header.small{	
 	border-bottom: 5px solid #009588;
@@ -28,6 +29,7 @@ header.small{
     height: 100px;
     color: #444444;
     font-size: 0.6em;
+    text-align: center;
 }
 h1 {
     font-family: 'Cutive', serif; 
@@ -38,13 +40,29 @@ h2{
     font-size: 2em;
     color: #222;
 }
+h5{
+    font-family: 'Oranienbaum', serif;
+    color: #FFF;
+}
+h5.small {
+    display: none;
+}
 .container {
 	margin-top: 35vh;
 }
 #mini-play-all {
-	box-shadow: 3px 2px 7px 0px #26263573;
+	box-shadow: 5px 5px 10px 0px #262635c0;
 	position: fixed;
-	margin-top: -78px;
+    margin-top: -78px;
+    background-color: #222;
+}
+.btn-floating.btn-large {
+    width: 100px;
+    height: 100px;
+}
+.btn-large i {
+    line-height: 100px !important;
+    font-size: 5rem;
 }
 #play-all-bar {
 	text-align: right;
@@ -65,6 +83,7 @@ h2{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 12px;
 }
 .a-body{
     font-family: 'Oranienbaum', serif; /* body */
@@ -131,3 +150,4 @@ h2{
     .a-body img{
         max-width: 200px;
     }
+}
