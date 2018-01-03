@@ -244,19 +244,22 @@ $(document).ready(function(){
 		$readLaterSecUl.append(rlArt);
 	})
 
-	// Event Binding
 	$container.on('click', 'button.readLater', readLater);
-	
-	//read page button
-	$("#mini-play-all").click(function() {
-		//text body variable
-		
-		//speak text audibly 
-		var b = $("#foxPanel").text();
-		responsiveVoice.speak(b);
-	});
-	
-	$().click();
+    
+    //read page button
+    $("#mini-play-all").click(function() {
+        
+        
+        //speak text audibly 
+
+         
+        var b = $("#foxPanel").find('p').text();
+
+        var c = $("#espnPanel").find('p').text();
+
+
+        responsiveVoice.speak(b + c);
+    });
 
 
 
