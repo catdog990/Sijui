@@ -28,12 +28,12 @@ $(document).ready(function(){
 
 		//1. Firebase
 	var config = {
-		apiKey: "AIzaSyB6eP0j1WYKAW7LMMFeH5deH4R7D21fWuM",
-		authDomain: "my-firebase-proj-45c06.firebaseapp.com",
-		databaseURL: "https://my-firebase-proj-45c06.firebaseio.com",
-		projectId: "my-firebase-proj-45c06",
-		storageBucket: "my-firebase-proj-45c06.appspot.com",
-		messagingSenderId: "205248542343"
+		apiKey: "",
+		authDomain: "",
+		databaseURL: "",
+		projectId: "",
+		storageBucket: "",
+		messagingSenderId: ""
 	};
 	firebase.initializeApp(config);
 
@@ -44,9 +44,9 @@ $(document).ready(function(){
 	var dbRef =	 db.ref();
 
 		//2. APIs
-	var foxURL = "https://newsapi.org/v2/top-headlines?sources=fox-news&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
-	var espnURL = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=e3f5ca683b4d4dc3b83b2d824133cc6e";
-	var nyTimesURL = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/World/1.json?api-key=f09c13f1ab334133b59ab848df8991cd";
+	var foxURL = "https://newsapi.org/v2/top-headlines?sources=fox-news&apiKey=<someAPIkey>";
+	var espnURL = "https://newsapi.org/v2/top-headlines?sources=espn&apiKey=<someAPIkey>";
+	var nyTimesURL = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/World/1.json?api-key=<someAPIkey>";
 
 
 	/***********************************	
